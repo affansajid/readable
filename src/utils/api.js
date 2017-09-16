@@ -8,7 +8,7 @@ export function fetchPosts (category = 'none') {
         { headers: { 'Authorization': API_ID }}
       )
       .then((res) => res.json())
-      .then(({ hits }) => hits.map(({ recipe }) => recipe))
+      .then(({ hits }) => hits.map(({ posts }) => posts))
   }
   else {
     return fetch(
@@ -16,7 +16,7 @@ export function fetchPosts (category = 'none') {
         { headers: { 'Authorization': API_ID }}
       )
       .then((res) => res.json())
-      .then(({ hits }) => hits.map(({ recipe }) => recipe))
+      .then(({ hits }) => hits.map(({ posts }) => posts))
   }
 }
 
@@ -27,5 +27,5 @@ export function fetchCategories () {
       { headers: { 'Authorization': API_ID }}
     )
     .then((res) => res.json())
-    .then(({ hits }) => hits.map(({ recipe }) => recipe))
+    .then(({ hits }) => hits.map(({ categories }) => categories))
 }
