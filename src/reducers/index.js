@@ -16,7 +16,7 @@ function posts (state = [], action) {
 	switch (action.type) {
 
     case FETCH_POSTS:
-      return [...state, ...action.posts]
+      return [...action.posts]
 
     case FETCH_POST:
       return [...state, ...action.post]
@@ -31,7 +31,7 @@ function post (state = {}, action) {
 	switch (action.type) {
 
     case FETCH_POST:
-      return {...state, ...action.post}
+      return {...action.post}
 
 		default :
 			return state
@@ -50,7 +50,7 @@ function categories (state = [], action) {
   switch (action.type) {
 
     case FETCH_CATEGORIES:
-      return [...state, ...action.categories]
+      return [...action.categories]
 
     default:
       return state;

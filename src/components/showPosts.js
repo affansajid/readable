@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchPosts } from '../actions';
+import { Link } from 'react-router-dom';
+import ShowCategories from './showCategories';
 
 class ShowPosts extends Component {
 
   componentWillMount() {
-    this.props.fetchPosts();
+    let category = this.props.match ? this.props.match.params.category : 'none';
+    this.props.fetchPosts(category);
   }
 
   renderPost(post) {
@@ -17,9 +20,11 @@ class ShowPosts extends Component {
           <div className="minus-score">&#x25BC;</div>
         </div>
         <div className="post-details">
-          <h3 className="post-title">{ post.title }</h3>
+          <Link to={`/posts/${post.id}`}>
+            <h3 className="post-title">{ post.title }</h3>
+          </Link>
           <h4 className="post-author">{ post.author }</h4>
-          <h4 className="post-category">{ post.category }</h4>
+          <Link to={`/category/${post.category}`}><h4 className="post-category">{ post.category }</h4></Link>
           <small className="post-date">{ post.timestamp }</small>
           <p className="post-body">{ post.body }</p>
         </div>

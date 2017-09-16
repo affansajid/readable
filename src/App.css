@@ -1,23 +1,45 @@
+body {
+  font-family: "Helvetica", Arial, sans-serif;
+  line-height: 1.55;
+  font-size: 16px;
+}
 
+a, a:visited {
+  color: #f9b052;
+}
 
-.App-header {
+header {
   background-color: #222;
-  height: 100px;
   padding: 20px;
   color: white;
 }
 
-.App-intro {
-  font-size: large;
+.category-container {
+  display: flex;
+  margin-top: 10px;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.home-link {
+  color: #f9b052;
+  text-decoration: none;
 }
 
+.category-container .category {
+  display: block;
+}
 
-.posts {
+.category-container .category a {
+  background-color: #fff;
+  padding: 10px 16px;
+  color: #000;
+  text-decoration: none;
+}
+
+.category-container .category a:hover {
+  background-color: #f9b052;
+}
+
+.posts, .post-container {
   display: flex;
   justify-content: center;
   align-items: center;

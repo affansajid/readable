@@ -12,7 +12,7 @@ class ShowCategories extends Component {
   renderCategory(category) {
     return (
       <div className="category" key={ category.name }>
-        <Link to={ category.path }>{ category.name }</Link>
+        <Link to={`/category/${category.path} `}>{ category.name }</Link>
       </div>
     )
   }
