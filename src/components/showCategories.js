@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchCategories } from '../actions';
+import { Link } from 'react-router-dom';
 
 class ShowCategories extends Component {
 
@@ -10,13 +11,15 @@ class ShowCategories extends Component {
 
   renderCategory(category) {
     return (
-      <div>{ category.name }</div>
+      <div className="category" key={ category.name }>
+        <Link to={ category.path }>{ category.name }</Link>
+      </div>
     )
   }
 
   render() {
     return (
-      <div className="container">
+      <div className="category-container">
         {this.props.categories.map(this.renderCategory)}
       </div>
     )

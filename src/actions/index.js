@@ -7,6 +7,7 @@ export const DELETE_POST = "DELETE_POST";
 export const ADD_POST = "ADD_POST";
 export const EDIT_POST = "EDIT_POST";
 export const FETCH_POSTS = "FETCH_POSTS";
+export const FETCH_POST = "FETCH_POST";
 export const FETCH_CATEGORIES = "FETCH_CATEGORIES";
 
 
@@ -39,12 +40,25 @@ export const receivePosts = posts => ({
   posts
 });
 
-export const fetchPosts = () => dispatch => (
+export const fetchPosts = (data) => dispatch => (
   ReadableAPI
-      .fetchPosts()
+      .fetchPosts(data)
       .then(posts => dispatch(receivePosts(posts)))
 );
 
+// Fetching a post
+
+export const receivePost = post => ({
+  type: FETCH_POST,
+  post
+});
+
+
+export const fetchPost = (data) => dispatch => (
+  ReadableAPI
+      .fetchPost(data)
+      .then(post => dispatch(receivePost(post)))
+);
 
 // Fetching categories
 

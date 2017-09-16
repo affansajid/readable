@@ -1,5 +1,6 @@
 import {
   FETCH_POSTS,
+  FETCH_POST,
   ADD_POST,
   EDIT_POST,
   DELETE_POST,
@@ -16,6 +17,21 @@ function posts (state = [], action) {
 
     case FETCH_POSTS:
       return [...state, ...action.posts]
+
+    case FETCH_POST:
+      return [...state, ...action.post]
+
+
+		default :
+			return state
+	}
+}
+
+function post (state = {}, action) {
+	switch (action.type) {
+
+    case FETCH_POST:
+      return {...state, ...action.post}
 
 		default :
 			return state
@@ -34,7 +50,6 @@ function categories (state = [], action) {
   switch (action.type) {
 
     case FETCH_CATEGORIES:
-      console.log(action.categories)
       return [...state, ...action.categories]
 
     default:
@@ -44,6 +59,7 @@ function categories (state = [], action) {
 
 export default combineReducers({
 	posts,
+  post,
 	comments,
   categories
 })
