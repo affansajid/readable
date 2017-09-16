@@ -1,6 +1,4 @@
-.App {
-  text-align: center;
-}
+
 
 .App-header {
   background-color: #222;
@@ -16,4 +14,49 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+
+.posts {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 800px;
+  margin: 100px auto;
+}
+
+
+.post {
+  width: 600px;
+  padding: 20px;
+  border-radius: 3px;
+  background-color: #eee;
+  color: #000;
+  display: flex;
+  align-items: center;
+}
+
+.post-score {
+  width: 40px;
+  text-align: center;
+}
+
+.add-score, .minus-score {
+  cursor: pointer;
+  padding: 10px;
+  text-align: center;
+}
+
+.post-details {
+  flex: 1;
+  padding-left: 10px;
+}
+
+.post-title {
+  font-weight: bold;
+}
+
+.post-author, .post-date {
+  margin: 0;
 }
