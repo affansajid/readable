@@ -8,7 +8,7 @@ export function fetchPosts (category = 'none') {
         { headers: { 'Authorization': API_ID }}
       )
       .then((res) => res.json())
-      .then(({ hits }) => hits.map(({ posts }) => posts))
+      // .then(({ hits }) => hits.map(({ posts }) => posts))
   }
   else {
     return fetch(
@@ -16,7 +16,7 @@ export function fetchPosts (category = 'none') {
         { headers: { 'Authorization': API_ID }}
       )
       .then((res) => res.json())
-      .then(({ hits }) => hits.map(({ posts }) => posts))
+      // .then(({ hits }) => hits.map(({ posts }) => posts))
   }
 }
 
