@@ -10,7 +10,7 @@ class ShowPosts extends Component {
 
   renderPost(post) {
     return (
-      <div className="post">
+      <div className="post" key={ post.id }>
         <div className="post-score">
           <div className="add-score">&#x25B2;</div>
           <div className="score-count">{ post.voteScore }</div>
@@ -29,20 +29,24 @@ class ShowPosts extends Component {
 
   render() {
     return (
-      <div className="posts">
-        {this.props.posts.map(this.renderPost)}
+      <div className="container">
+        <div className="posts">
+          {this.props.posts.map(this.renderPost)}
+        </div>
       </div>
     )
   }
 }
 
 function mapStateToProps(state) {
-  return { posts: state.posts }
+  return {
+    posts: state.posts
+  }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    fetchPosts: (data) => dispatch(fetchPosts(data)),
+    fetchPosts: (data) => dispatch(fetchPosts(data))
   }
 }
 

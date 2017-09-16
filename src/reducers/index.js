@@ -5,7 +5,8 @@ import {
   DELETE_POST,
   ADD_COMMENT,
   EDIT_COMMENT,
-  DELETE_COMMENT
+  DELETE_COMMENT,
+  FETCH_CATEGORIES
  } from '../actions'
 
 import { combineReducers } from 'redux';
@@ -29,7 +30,20 @@ function comments (state = [], action) {
   }
 }
 
+function categories (state = [], action) {
+  switch (action.type) {
+
+    case FETCH_CATEGORIES:
+      console.log(action.categories)
+      return [...state, ...action.categories]
+
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
 	posts,
-	comments
+	comments,
+  categories
 })

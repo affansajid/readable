@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import ShowPosts from './showPosts';
+import ShowCategories from './showCategories';
 import '../App.css';
-import { fetchPosts, fetchCategories } from '../utils/api'
 
 class App extends Component {
+
   render() {
     return (
       <div className="App">
         <div className="posts-container">
+          <ShowCategories />
           <ShowPosts />
         </div>
       </div>
