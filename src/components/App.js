@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
+import ShowPosts from './showPosts';
 import '../App.css';
+import { fetchPosts, fetchCategories } from '../utils/api'
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <h2>Readable</h2>
+        <div className="posts-container">
+          <ShowPosts />
         </div>
-        <p className="App-intro">
-          Find top news here
-        </p>
       </div>
     );
   }
