@@ -6,6 +6,8 @@ export const EDIT_COMMENT = "EDIT_COMMENT";
 export const DELETE_POST = "DELETE_POST";
 export const ADD_POST = "ADD_POST";
 export const EDIT_POST = "EDIT_POST";
+export const UPVOTE_POST = "UPVOTE_POST";
+export const DOWNVOTE_POST = "DOWNVOTE_POST";
 export const FETCH_POSTS = "FETCH_POSTS";
 export const FETCH_POST = "FETCH_POST";
 export const FETCH_CATEGORIES = "FETCH_CATEGORIES";
@@ -58,6 +60,30 @@ export const fetchPost = (data) => dispatch => (
   ReadableAPI
       .fetchPost(data)
       .then(post => dispatch(receivePost(post)))
+);
+
+// UpVote/DownVote
+
+export const upVotePost = post => ({
+  type: UPVOTE_POST,
+  post
+});
+
+export const downVotePost = post => ({
+  type: DOWNVOTE_POST,
+  post
+});
+
+export const upVotePostScore = (data) => dispatch => (
+  ReadableAPI
+      .updatePostScore(data)
+      .then(post => dispatch(upVotePost(post)))
+);
+
+export const downVotePostScore = (data) => dispatch => (
+  ReadableAPI
+      .updatePostScore(data)
+      .then(post => dispatch(downVotePost(post)))
 );
 
 // Fetching categories

@@ -4,6 +4,8 @@ import {
   ADD_POST,
   EDIT_POST,
   DELETE_POST,
+  UPVOTE_POST,
+  DOWNVOTE_POST,
   ADD_COMMENT,
   EDIT_COMMENT,
   DELETE_COMMENT,
@@ -12,15 +14,26 @@ import {
 
 import { combineReducers } from 'redux';
 
-function posts (state = [], action) {
+function posts (state = {}, action) {
+
+  const { posts, post } = action;
+
 	switch (action.type) {
 
     case FETCH_POSTS:
       return [...action.posts]
 
     case FETCH_POST:
-      return [...state, ...action.post]
+      return {
+        ...state,
+        [post.id]: post
+      }
 
+    case UPVOTE_POST:
+      return {
+        ...state,
+        [post.id]: post
+      }
 
 		default :
 			return state
