@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { fetchPosts, upVotePostScore } from '../actions';
 import { Link } from 'react-router-dom';
 import ShowCategories from './showCategories';
+import _ from 'lodash';
 
 class ShowPosts extends Component {
 
@@ -13,7 +14,7 @@ class ShowPosts extends Component {
 
   incrementScore = (post) => {
 
-    this.props.updatePostScore(post.id, "upVote")
+    this.props.updatePostScore(post, "upVote")
   }
 
   decrementScore = (post) => {
@@ -23,7 +24,7 @@ class ShowPosts extends Component {
   render() {
 
     const { posts } = this.props;
-    console.log(posts)
+
 
     return (
       <div className="container">
@@ -31,7 +32,7 @@ class ShowPosts extends Component {
           {posts.map((post) => (
             <div className="post" key={ post.id }>
               <div className="post-score">
-                <div className="add-score" onClick={this.incrementScore(post)}>&#x25B2;</div>
+                <div className="add-score" onClick={this.incrementScore(post.id)}>&#x25B2;</div>
                 <div className="score-count">{ post.voteScore }</div>
                 <div className="minus-score" onClick={() => {this.decrementScore} }>&#x25BC;</div>
               </div>
@@ -53,8 +54,10 @@ class ShowPosts extends Component {
 }
 
 function mapStateToProps(state) {
+  const posts = _.filter(state.posts, post => !post.deleted);
+
   return {
-    posts: state.posts
+    posts: posts
   }
 }
 
