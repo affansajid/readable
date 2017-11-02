@@ -1,4 +1,5 @@
 const API_ID = "my_readable_api_id"
+const headers = { 'Authorization': API_ID, 'Accept': 'application/json', 'Content-Type': 'application/json' }
 
 export function fetchPosts (category = 'none') {
 
@@ -12,7 +13,7 @@ export function fetchPosts (category = 'none') {
   else {
     return fetch(
         'http://localhost:5001/posts',
-        { headers: { 'Authorization': API_ID }}
+        { headers }
       )
       .then((res) => res.json())
   }
@@ -30,12 +31,11 @@ export function fetchPost (post_id) {
 
 export function updatePostScore (post_id, option) {
   let postID = post_id;
-
   return fetch(
       `http://localhost:5001/posts/${postID}`,
-      { headers: {'Authorization': API_ID},
+      { headers,
         method: 'POST',
-        body: JSON.stringify({ option: option })
+        body: JSON.stringify({ option })
       }
     ).then((res) => res.json())
 }

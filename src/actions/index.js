@@ -76,13 +76,13 @@ export const downVotePost = post => ({
 
 export const upVotePostScore = (data) => dispatch => (
   ReadableAPI
-      .updatePostScore(data)
+      .updatePostScore(data, "upVote")
       .then(post => dispatch(upVotePost(post)))
 );
 
 export const downVotePostScore = (data) => dispatch => (
   ReadableAPI
-      .updatePostScore(data)
+      .updatePostScore(data, "downVote")
       .then(post => dispatch(downVotePost(post)))
 );
 

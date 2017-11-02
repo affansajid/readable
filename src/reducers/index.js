@@ -12,6 +12,8 @@ import {
   FETCH_CATEGORIES
  } from '../actions'
 
+import _ from 'lodash'
+
 import { combineReducers } from 'redux';
 
 function posts (state = {}, action) {
@@ -21,7 +23,17 @@ function posts (state = {}, action) {
 	switch (action.type) {
 
     case FETCH_POSTS:
-      return [...action.posts]
+      const postsObj = _.mapKeys(posts, 'id')
+      return postsObj
+
+      //
+      // return {
+      //   ...state,
+      //   posts: posts.reduce((acc, curr) => {
+      //     acc[curr.id] = curr;
+      //     return acc;
+      //   }, {})
+      // }
 
     case FETCH_POST:
       return {
@@ -35,16 +47,11 @@ function posts (state = {}, action) {
         [post.id]: post
       }
 
-		default :
-			return state
-	}
-}
-
-function post (state = {}, action) {
-	switch (action.type) {
-
-    case FETCH_POST:
-      return {...action.post}
+    case DOWNVOTE_POST:
+      return {
+        ...state,
+        [post.id]: post
+      }
 
 		default :
 			return state
@@ -72,7 +79,6 @@ function categories (state = [], action) {
 
 export default combineReducers({
 	posts,
-  post,
 	comments,
   categories
 })
