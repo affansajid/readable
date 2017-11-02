@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchPost, fetchComments } from '../actions';
+import {
+    fetchPost,
+    fetchComments,
+    upVotePostScore,
+    downVotePostScore,
+    upVoteCommentScore,
+    downVoteCommentScore
+  } from '../actions';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
+import { friendlyTime } from '../utils/helpers';
 
 class ShowPost extends Component {
 
@@ -13,16 +21,19 @@ class ShowPost extends Component {
 
   }
 
-  friendlyTime = (date) => {
-    var monthNames = ["January", "February", "March", "April", "May", "June",
-      "July", "August", "September", "October", "November", "December"
-    ];
+  // Post & Comment Actions
 
-    var postDate = new Date(date)
-
-    return (
-      monthNames[postDate.getMonth()] + ' ' + postDate.getDate() + ', ' + postDate.getFullYear()
-    )
+  incrementScore = (postId) => {
+    this.props.upVotePost(postId)
+  }
+  decrementScore = (postId) => {
+    this.props.downVotePost(postId)
+  }
+  incrementCommentScore = (commentId) => {
+    this.props.upVoteComment(commentId)
+  }
+  decrementCommentScore = (commentId) => {
+    this.props.downVoteComment(commentId)
   }
 
   render() {
@@ -42,7 +53,7 @@ class ShowPost extends Component {
                 <div className="post-score">
                   <div className="add-score" onClick={() => this.incrementScore(post.id)}>&#x25B2;</div>
                   <div className="score-count">{ post.voteScore }</div>
-                  <div className="minus-score" onClick={() => this.decrementScore(post.id) }>&#x25BC;</div>
+                  <div className="minus-score" onClick={() => this.decrementScore(post.id)}>&#x25BC;</div>
                 </div>
                 <div className="post-details">
                   <Link to={`/${post.category}/${post.id}`}>
@@ -50,7 +61,7 @@ class ShowPost extends Component {
                   </Link>
                   <h4 className="post-author">{ post.author }</h4>
                   <Link to={`/${post.category}`}><h4 className="post-category">{ post.category }</h4></Link>
-                  <small className="post-date">{ this.friendlyTime(post.timestamp) }</small>
+                  <small className="post-date">{ friendlyTime(post.timestamp) }</small>
                   <p className="post-body">{ post.body }</p>
                 </div>
               </div>
@@ -58,17 +69,18 @@ class ShowPost extends Component {
           </div>
           {comments.length > 0 && (
             <div className="comments-container">
+              <h3>Comments</h3>
               {comments.map((comment) => (
                 <div className="single-post" key={ comment.id }>
                   <div className="post">
                     <div className="post-score">
-                      <div className="add-score" onClick={() => this.incrementScore(comment.id)}>&#x25B2;</div>
+                      <div className="add-score" onClick={() => this.incrementCommentScore(comment.id)}>&#x25B2;</div>
                       <div className="score-count">{ comment.voteScore }</div>
-                      <div className="minus-score" onClick={() => this.decrementScore(comment.id) }>&#x25BC;</div>
+                      <div className="minus-score" onClick={() => this.decrementCommentScore(comment.id) }>&#x25BC;</div>
                     </div>
                     <div className="post-details">
                       <h4 className="post-author">{ comment.author }</h4>
-                      <small className="post-date">{ this.friendlyTime(comment.timestamp) }</small>
+                      <small className="post-date">{ friendlyTime(comment.timestamp) }</small>
                       <p className="post-body">{ comment.body }</p>
                     </div>
                   </div>
@@ -95,7 +107,11 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps (dispatch) {
   return {
     fetchPostData: (data) => dispatch(fetchPost(data)),
-    fetchPostComments: (data) => dispatch(fetchComments(data))
+    fetchPostComments: (data) => dispatch(fetchComments(data)),
+    upVotePost: (data) => dispatch(upVotePostScore(data)),
+    downVotePost: (data) => dispatch(downVotePostScore(data)),    
+    upVoteComment: (data) => dispatch(upVoteCommentScore(data)),
+    downVoteComment: (data) => dispatch(downVoteCommentScore(data))
   }
 }
 

@@ -1,18 +1,19 @@
 const API_ID = "my_readable_api_id"
 const headers = { 'Authorization': API_ID, 'Accept': 'application/json', 'Content-Type': 'application/json' }
+const SERVER_URL = 'http://localhost:5001'
 
 export function fetchPosts (category = 'none') {
 
   if (category !== 'none') {
     return fetch(
-        `http://localhost:5001/${category}/posts`,
+        `${SERVER_URL}/${category}/posts`,
         { headers }
       )
       .then((res) => res.json())
   }
   else {
     return fetch(
-        'http://localhost:5001/posts',
+        `${SERVER_URL}/posts`,
         { headers }
       )
       .then((res) => res.json())
@@ -20,19 +21,19 @@ export function fetchPosts (category = 'none') {
 }
 
 export function fetchPost (post_id) {
-  let postID = post_id;
+  let postId = post_id;
 
   return fetch(
-      `http://localhost:5001/posts/${postID}`,
+      `${SERVER_URL}/posts/${postId}`,
       { headers }
     )
     .then((res) => res.json())
 }
 
 export function updatePostScore (post_id, option) {
-  let postID = post_id;
+  let postId = post_id;
   return fetch(
-      `http://localhost:5001/posts/${postID}`,
+      `${SERVER_URL}/posts/${postId}`,
       { headers,
         method: 'POST',
         body: JSON.stringify({ option })
@@ -41,18 +42,29 @@ export function updatePostScore (post_id, option) {
 }
 
 export function fetchComments (post_id) {
-  let postID = post_id;
+  let postId = post_id;
 
   return fetch(
-      `http://localhost:5001/posts/${postID}/comments`,
+      `${SERVER_URL}/posts/${postId}/comments`,
       { headers }
+    ).then((res) => res.json())
+}
+
+export function updateCommentScore (comment_id, option) {
+  let commentId = comment_id;
+  return fetch(
+      `${SERVER_URL}/comments/${commentId}`,
+      { headers,
+        method: 'POST',
+        body: JSON.stringify({ option })
+      }
     ).then((res) => res.json())
 }
 
 export function fetchCategories () {
 
   return fetch(
-      'http://localhost:5001/categories',
+      `${SERVER_URL}/categories`,
       { headers }
     )
     .then((res) => res.json())

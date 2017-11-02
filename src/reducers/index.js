@@ -7,6 +7,8 @@ import {
   UPVOTE_POST,
   DOWNVOTE_POST,
   GET_COMMENTS,
+  UPVOTE_COMMENT,
+  DOWNVOTE_COMMENT,
   // ADD_COMMENT,
   // EDIT_COMMENT,
   // DELETE_COMMENT,
@@ -61,12 +63,24 @@ function posts (state = {}, action) {
 
 function comments (state = {}, action) {
 
-  const { comments } = action;
+  const { comments, comment } = action;
 
   switch (action.type) {
     case GET_COMMENTS:
       const commentsObj = _.mapKeys(comments, 'id')
       return commentsObj
+
+    case UPVOTE_COMMENT:
+      return {
+        ...state,
+        [comment.id]: comment
+      }
+
+    case DOWNVOTE_COMMENT:
+      return {
+        ...state,
+        [comment.id]: comment
+      }
     default:
       return state;
   }

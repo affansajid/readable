@@ -4,6 +4,8 @@ export const GET_COMMENTS = "GET_COMMENTS";
 export const DELETE_COMMENT = "DELETE_COMMENT";
 export const ADD_COMMENT = "ADD_COMMENT";
 export const EDIT_COMMENT = "EDIT_COMMENT";
+export const UPVOTE_COMMENT = "UPVOTE_COMMENT";
+export const DOWNVOTE_COMMENT = "DOWNVOTE_COMMENT";
 export const DELETE_POST = "DELETE_POST";
 export const ADD_POST = "ADD_POST";
 export const EDIT_POST = "EDIT_POST";
@@ -13,6 +15,7 @@ export const FETCH_POSTS = "FETCH_POSTS";
 export const FETCH_POST = "FETCH_POST";
 export const FETCH_CATEGORIES = "FETCH_CATEGORIES";
 
+/// POSTS
 
 // Fetching Posts
 
@@ -65,7 +68,9 @@ export const downVotePostScore = (data) => dispatch => (
       .then(post => dispatch(downVotePost(post)))
 );
 
-// Fetching comments
+/// COMMENTS
+
+// Fetching Comments
 
 export const receiveComments = comments => ({
   type: GET_COMMENTS,
@@ -78,7 +83,31 @@ export const fetchComments = (data) => dispatch => (
       .then(comments => dispatch(receiveComments(comments)))
 );
 
-// Fetching categories
+// UpVoteComment/downVoteComment
+
+export const upVoteComment = comment => ({
+  type: UPVOTE_COMMENT,
+  comment
+});
+
+export const downVoteComment = comment => ({
+  type: DOWNVOTE_COMMENT,
+  comment
+});
+
+export const upVoteCommentScore = (data) => dispatch => (
+  ReadableAPI
+      .updateCommentScore(data, "upVote")
+      .then(comment => dispatch(upVoteComment(comment)))
+);
+
+export const downVoteCommentScore = (data) => dispatch => (
+  ReadableAPI
+      .updateCommentScore(data, "downVote")
+      .then(comment => dispatch(downVoteComment(comment)))
+);
+
+// Categories
 
 export const receiveCategories = categories => ({
   type: FETCH_CATEGORIES,
