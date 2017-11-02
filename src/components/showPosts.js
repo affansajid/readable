@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchPosts, upVotePostScore } from '../actions';
+import { fetchPosts, upVotePostScore, downVotePostScore } from '../actions';
 import { Link } from 'react-router-dom';
 import ShowCategories from './showCategories';
 import _ from 'lodash';
@@ -9,16 +9,28 @@ class ShowPosts extends Component {
 
   componentWillMount() {
     let category = this.props.match ? this.props.match.params.category : 'none';
-    this.props.fetchPosts(category);
+    this.props.fetchAllPosts(category);
   }
 
-  incrementScore = (post) => {
+  incrementScore = (postId) => {
 
-    this.props.updatePostScore(post, "upVote")
+    this.props.upVote(postId)
   }
 
-  decrementScore = (post) => {
-    this.props.updatePostScore(post.id, "downVote")
+  decrementScore = (postId) => {
+    this.props.downVote(postId)
+  }
+
+  friendlyTime = (date) => {
+    var monthNames = ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+
+    var postDate = new Date(date)
+
+    return (
+      monthNames[postDate.getMonth()] + ' ' + postDate.getDate() + ', ' + postDate.getFullYear()
+    )
   }
 
   render() {
@@ -32,9 +44,9 @@ class ShowPosts extends Component {
           {posts.map((post) => (
             <div className="post" key={ post.id }>
               <div className="post-score">
-                <div className="add-score" onClick={this.incrementScore(post.id)}>&#x25B2;</div>
+                <div className="add-score" onClick={() => this.incrementScore(post.id)}>&#x25B2;</div>
                 <div className="score-count">{ post.voteScore }</div>
-                <div className="minus-score" onClick={() => {this.decrementScore} }>&#x25BC;</div>
+                <div className="minus-score" onClick={() => this.decrementScore(post.id) }>&#x25BC;</div>
               </div>
               <div className="post-details">
                 <Link to={`/posts/${post.id}`}>
@@ -42,7 +54,7 @@ class ShowPosts extends Component {
                 </Link>
                 <h4 className="post-author">{ post.author }</h4>
                 <Link to={`/category/${post.category}`}><h4 className="post-category">{ post.category }</h4></Link>
-                <small className="post-date">{ post.timestamp }</small>
+                <small className="post-date">{ this.friendlyTime(post.timestamp) }</small>
                 <p className="post-body">{ post.body }</p>
               </div>
             </div>
@@ -55,7 +67,7 @@ class ShowPosts extends Component {
 
 function mapStateToProps(state) {
   const posts = _.filter(state.posts, post => !post.deleted);
-
+  
   return {
     posts: posts
   }
@@ -63,8 +75,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    fetchPosts: (data) => dispatch(fetchPosts(data)),
-    updatePostScore: (data) => dispatch(upVotePostScore(data))
+    fetchAllPosts: (data) => dispatch(fetchPosts(data)),
+    upVote: (data) => dispatch(upVotePostScore(data)),
+    downVote: (data) => dispatch(downVotePostScore(data))
   }
 }
 
