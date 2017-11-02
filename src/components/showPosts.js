@@ -2,35 +2,34 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchPosts, upVotePostScore, downVotePostScore } from '../actions';
 import { Link } from 'react-router-dom';
-import ShowCategories from './showCategories';
 import _ from 'lodash';
+import { friendlyTime } from '../utils/helpers';
 
 class ShowPosts extends Component {
 
   componentWillMount() {
-    let category = this.props.match ? this.props.match.params.category : 'none';
+    const category = this.props.match ? this.props.match.params.category : 'none';
     this.props.fetchAllPosts(category);
+  }
+
+  componentWillReceiveProps(nextProps) {
+
+    const currentCategory = this.props.match.params.category
+    const nextCategory = nextProps.match.params.category
+    console.log(currentCategory === nextCategory)
+    if (currentCategory !== nextCategory) {
+      const category = nextCategory !== null ? nextCategory : 'none';
+      this.props.fetchAllPosts(category);
+    }
   }
 
   incrementScore = (postId) => {
 
-    this.props.upVote(postId)
+    this.props.upVotePost(postId)
   }
 
   decrementScore = (postId) => {
-    this.props.downVote(postId)
-  }
-
-  friendlyTime = (date) => {
-    var monthNames = ["January", "February", "March", "April", "May", "June",
-      "July", "August", "September", "October", "November", "December"
-    ];
-
-    var postDate = new Date(date)
-
-    return (
-      monthNames[postDate.getMonth()] + ' ' + postDate.getDate() + ', ' + postDate.getFullYear()
-    )
+    this.props.downVotePost(postId)
   }
 
   render() {
@@ -54,7 +53,7 @@ class ShowPosts extends Component {
                 </Link>
                 <h4 className="post-author">{ post.author }</h4>
                 <Link to={`/${post.category}`}><h4 className="post-category">{ post.category }</h4></Link>
-                <small className="post-date">{ this.friendlyTime(post.timestamp) }</small>
+                <small className="post-date">{ friendlyTime(post.timestamp) }</small>
                 <p className="post-body">{ post.body }</p>
               </div>
             </div>
@@ -76,8 +75,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps (dispatch) {
   return {
     fetchAllPosts: (data) => dispatch(fetchPosts(data)),
-    upVote: (data) => dispatch(upVotePostScore(data)),
-    downVote: (data) => dispatch(downVotePostScore(data))
+    upVotePost: (data) => dispatch(upVotePostScore(data)),
+    downVotePost: (data) => dispatch(downVotePostScore(data))
   }
 }
 
