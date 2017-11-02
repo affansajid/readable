@@ -1,14 +1,15 @@
 import {
   FETCH_POSTS,
   FETCH_POST,
-  ADD_POST,
-  EDIT_POST,
-  DELETE_POST,
+  // ADD_POST,
+  // EDIT_POST,
+  // DELETE_POST,
   UPVOTE_POST,
   DOWNVOTE_POST,
-  ADD_COMMENT,
-  EDIT_COMMENT,
-  DELETE_COMMENT,
+  GET_COMMENTS,
+  // ADD_COMMENT,
+  // EDIT_COMMENT,
+  // DELETE_COMMENT,
   FETCH_CATEGORIES
  } from '../actions'
 
@@ -58,9 +59,14 @@ function posts (state = {}, action) {
 	}
 }
 
-function comments (state = [], action) {
-  switch (action.type) {
+function comments (state = {}, action) {
 
+  const { comments } = action;
+
+  switch (action.type) {
+    case GET_COMMENTS:
+      const commentsObj = _.mapKeys(comments, 'id')
+      return commentsObj
     default:
       return state;
   }

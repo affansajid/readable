@@ -40,6 +40,14 @@ export function updatePostScore (post_id, option) {
     ).then((res) => res.json())
 }
 
+export function fetchComments (post_id) {
+  let postID = post_id;
+
+  return fetch(
+      `http://localhost:5001/posts/${postID}/comments`,
+      { headers }
+    ).then((res) => res.json())
+}
 
 export function fetchCategories () {
 
