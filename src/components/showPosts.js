@@ -49,11 +49,11 @@ class ShowPosts extends Component {
                 <div className="minus-score" onClick={() => this.decrementScore(post.id) }>&#x25BC;</div>
               </div>
               <div className="post-details">
-                <Link to={`/posts/${post.id}`}>
+                <Link to={`/${post.category}/${post.id}`}>
                   <h3 className="post-title">{ post.title }</h3>
                 </Link>
                 <h4 className="post-author">{ post.author }</h4>
-                <Link to={`/category/${post.category}`}><h4 className="post-category">{ post.category }</h4></Link>
+                <Link to={`/${post.category}`}><h4 className="post-category">{ post.category }</h4></Link>
                 <small className="post-date">{ this.friendlyTime(post.timestamp) }</small>
                 <p className="post-body">{ post.body }</p>
               </div>
@@ -67,7 +67,7 @@ class ShowPosts extends Component {
 
 function mapStateToProps(state) {
   const posts = _.filter(state.posts, post => !post.deleted);
-  
+
   return {
     posts: posts
   }

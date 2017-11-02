@@ -3,7 +3,7 @@ import ShowPosts from './showPosts';
 import ShowPost from './postDetail';
 import ShowCategories from './showCategories';
 import '../App.css';
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, Switch } from 'react-router-dom';
 
 class App extends Component {
 
@@ -16,14 +16,12 @@ class App extends Component {
           <ShowCategories />
         </header>
         <div className="posts-container">
-          <Route exact path='/' render={() => (
-            <div>
-              <ShowPosts />
-            </div>
-          )}/>
-          <Route path='/category/:category' component={ShowPosts} />
 
-          <Route path='/posts/:id' component={ShowPost} />
+          <Switch>
+            <Route exact path='/' component={ShowPosts} />
+            <Route exact path='/:category' component={ShowPosts} />
+            <Route path='/:category/:post_id' component={ShowPost} />
+          </Switch>
         </div>
       </div>
     );
