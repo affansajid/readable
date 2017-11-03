@@ -120,6 +120,19 @@ export const addComment = (data) => dispatch => (
       .then(comment => dispatch(addCommentAction(comment)))
 );
 
+// Delete comment
+
+export const deleteCommentAction = comment => ({
+  type: DELETE_COMMENT,
+  comment
+});
+
+export const deleteComment = (data) => dispatch => (
+  ReadableAPI
+      .deleteComment(data)
+      .then(comment => dispatch(deleteCommentAction(comment)))
+);
+
 // CATEGORIES
 
 export const receiveCategories = categories => ({

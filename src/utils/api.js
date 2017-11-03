@@ -84,6 +84,17 @@ export function addComment (comment) {
     ).then((res) => res.json())
 }
 
+// Delete Comment
+
+export function deleteComment (commentId) {
+  return fetch(
+      `${SERVER_URL}/comments/${commentId}`,
+      { headers,
+        method: 'DELETE'
+      }
+    ).then((res) => res.json())
+}
+
 // CATEGORIES
 
 export function fetchCategories () {

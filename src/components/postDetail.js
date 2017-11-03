@@ -7,7 +7,8 @@ import {
     downVotePostScore,
     upVoteCommentScore,
     downVoteCommentScore,
-    addComment
+    addComment,
+    deleteComment
   } from '../actions';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
@@ -61,7 +62,10 @@ class ShowPost extends Component {
         commentBody: ''
       }))
     }
+  }
 
+  deleteComment = (commentId) => {
+    this.props.deleteCommentDispatcher(commentId)
   }
 
   renderAddComment() {
@@ -132,17 +136,21 @@ class ShowPost extends Component {
 
             {comments.length > 0 && (
               comments.map((comment) => (
-                <div className="single-post" key={ comment.id }>
-                  <div className="post">
-                    <div className="post-score">
+                <div className="single-comment" key={ comment.id }>
+                  <div className="comment">
+                    <div className="comment-score">
                       <div className="add-score" onClick={() => this.incrementCommentScore(comment.id)}>&#x25B2;</div>
                       <div className="score-count">{ comment.voteScore }</div>
                       <div className="minus-score" onClick={() => this.decrementCommentScore(comment.id) }>&#x25BC;</div>
                     </div>
-                    <div className="post-details">
-                      <h4 className="post-author">{ comment.author }</h4>
-                      <small className="post-date">{ friendlyTime(comment.timestamp) }</small>
-                      <p className="post-body">{ comment.body }</p>
+                    <div className="comment-details">
+                      <h4 className="comment-author">{ comment.author }</h4>
+                      <small className="comment-date">{ friendlyTime(comment.timestamp) }</small>
+                      <p className="comment-body">{ comment.body }</p>
+                    </div>
+                    <div className="comment-actions">
+                      <button onClick={() => this.editComment(comment.id)}>Edit</button>
+                      <button onClick={() => this.deleteComment(comment.id)}>Delete</button>
                     </div>
                   </div>
                 </div>
@@ -177,7 +185,8 @@ function mapDispatchToProps (dispatch) {
     downVotePost: (data) => dispatch(downVotePostScore(data)),
     upVoteComment: (data) => dispatch(upVoteCommentScore(data)),
     downVoteComment: (data) => dispatch(downVoteCommentScore(data)),
-    addCommentDispatcher: (data) => dispatch(addComment(data))
+    addCommentDispatcher: (data) => dispatch(addComment(data)),
+    deleteCommentDispatcher: (data) => dispatch(deleteComment(data))
   }
 }
 

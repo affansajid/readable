@@ -11,7 +11,7 @@ import {
   DOWNVOTE_COMMENT,
   ADD_COMMENT,
   // EDIT_COMMENT,
-  // DELETE_COMMENT,
+  DELETE_COMMENT,
   FETCH_CATEGORIES
  } from '../actions'
 
@@ -83,6 +83,12 @@ function comments (state = {}, action) {
       }
 
     case ADD_COMMENT:
+      return {
+        ...state,
+        [comment.id]: comment
+      }
+
+    case DELETE_COMMENT:
       return {
         ...state,
         [comment.id]: comment

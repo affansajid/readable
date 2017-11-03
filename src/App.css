@@ -97,6 +97,37 @@ header {
   align-items: center;
 }
 
+.comment {
+  width: 600px;
+  padding: 20px;
+  border-radius: 3px;
+  background-color: #eee;
+  color: #000;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.comment-score {
+  width: 40px;
+  text-align: center;
+}
+
+.add-score, .minus-score {
+  cursor: pointer;
+  padding: 10px;
+  text-align: center;
+}
+
+.comment-details {
+  flex: 1;
+  padding-left: 10px;
+}
+
+.comment-author, .comment-date {
+  margin: 0;
+}
+
 .add-comment {
   width: 600px;
   padding: 20px;
