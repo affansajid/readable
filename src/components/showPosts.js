@@ -7,9 +7,13 @@ import { friendlyTime } from '../utils/helpers';
 
 class ShowPosts extends Component {
 
+  state = {
+    sortBy: 'voteScore'
+  }
+
   componentWillMount() {
-    const category = this.props.match ? this.props.match.params.category : 'none';
-    this.props.fetchAllPosts(category);
+    const category = this.props.match.params.category ? this.props.match.params.category : 'none';
+    this.props.fetchAllPosts(category.trim());
   }
 
   shouldComponentUpdate(nextProps) {
@@ -36,6 +40,10 @@ class ShowPosts extends Component {
     this.props.downVotePost(postId)
   }
 
+  sortPosts = (sortKey) => {
+    console.log(sortKey)
+  }
+
   render() {
 
     const { posts } = this.props;
@@ -43,6 +51,26 @@ class ShowPosts extends Component {
 
     return (
       <div className="container">
+
+        <div className="sort-selector">
+
+          <Link
+            to={'/create'}
+            className="add-post">
+            Add Post
+          </Link>
+
+          <span className="sort-title">Sort Posts By:</span>
+          <select
+            onChange={(event) => this.sortPosts(event.target.value)}
+            value={this.state.sortBy}
+            className="sort-control">
+            <option value="" disabled>Sort By...</option>
+            <option value="voteScore">Vote Score</option>
+            <option value="Date">Date</option>
+          </select>
+        </div>
+
         <div className="posts">
           {posts.map((post) => (
             <div className="post" key={ post.id }>
