@@ -165,7 +165,8 @@ class ShowPost extends Component {
                   </Link>
                   <h4 className="post-author">{ post.author }</h4>
                   <Link to={`/${post.category}`}><h4 className="post-category">{ post.category }</h4></Link>
-                  <small className="post-date">{ friendlyTime(post.timestamp) }</small>
+                  <small className="post-date">{ friendlyTime(post.timestamp) }</small><br />
+                  <small className="post-comment-count">Comments: { comments.length }</small>
                   <p className="post-body">{ post.body }</p>
                 </div>
               </div>
@@ -196,8 +197,8 @@ class ShowPost extends Component {
                       <p className="comment-body">{ comment.body }</p>
                     </div>
                     <div className="comment-actions">
-                      <button onClick={() => this.editComment(comment.id, comment.body)}>Edit</button>
-                      <button onClick={() => this.deleteComment(comment.id)}>Delete</button>
+                      <button className="edit-btn" onClick={() => this.editComment(comment.id, comment.body)}>Edit</button>
+                      <button className="delete-btn" onClick={() => this.deleteComment(comment.id)}>Delete</button>
                     </div>
                   </div>
                 </div>
