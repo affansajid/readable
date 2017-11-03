@@ -68,7 +68,7 @@ export function deletePost (postId) {
       { headers,
         method: 'DELETE'
       }
-    ).then((res) => console.log(res.json()))
+    ).then((res) => res.json())
 }
 
 // Update Post Score
