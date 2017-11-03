@@ -54,11 +54,8 @@ class ShowPost extends Component {
         id: ('Comment' + Date.now()),
         author: author,
         body: commentBody,
-        voteScore: 0,
-        deleted: false,
         timestamp: Date.now(),
-        parentId: this.props.match.params.post_id,
-        parentDeleted: false
+        parentId: this.props.match.params.post_id
       }
       this.props.addCommentDispatcher(comment)
       .then(this.setState({

@@ -1,7 +1,7 @@
 import {
   FETCH_POSTS,
   FETCH_POST,
-  // ADD_POST,
+  ADD_POST,
   // EDIT_POST,
   // DELETE_POST,
   UPVOTE_POST,
@@ -29,16 +29,13 @@ function posts (state = {}, action) {
       const postsObj = _.mapKeys(posts, 'id')
       return postsObj
 
-      //
-      // return {
-      //   ...state,
-      //   posts: posts.reduce((acc, curr) => {
-      //     acc[curr.id] = curr;
-      //     return acc;
-      //   }, {})
-      // }
-
     case FETCH_POST:
+      return {
+        ...state,
+        [post.id]: post
+      }
+
+    case ADD_POST:
       return {
         ...state,
         [post.id]: post
@@ -93,7 +90,7 @@ function comments (state = {}, action) {
         ...state,
         [comment.id]: comment
       }
-      
+
     case EDIT_COMMENT:
       return {
         ...state,

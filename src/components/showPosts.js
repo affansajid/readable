@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchPosts, upVotePostScore, downVotePostScore } from '../actions';
+import { fetchPosts, upVotePostScore, downVotePostScore, fetchComments } from '../actions';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
 import { friendlyTime } from '../utils/helpers';
@@ -88,6 +88,10 @@ class ShowPosts extends Component {
                 <small className="post-date">{ friendlyTime(post.timestamp) }</small>
                 <p className="post-body">{ post.body }</p>
               </div>
+              <div className="post-actions">
+                <Link className="edit-btn" to={`/edit/${post.id}`}>Edit</Link>
+                <button className="delete-btn" onClick={() => this.deletePost(post.id)}>Delete</button>
+              </div>
             </div>
           ))}
           {posts.length === 0 && (
@@ -105,13 +109,15 @@ function mapStateToProps(state) {
   const posts = _.filter(state.posts, post => !post.deleted);
 
   return {
-    posts: posts
+    posts,
+    comments: state.comments
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
     fetchAllPosts: (data) => dispatch(fetchPosts(data)),
+    fetchAllComments: (data) => dispatch(fetchComments(data)),
     upVotePost: (data) => dispatch(upVotePostScore(data)),
     downVotePost: (data) => dispatch(downVotePostScore(data))
   }

@@ -211,18 +211,39 @@ a.add-post {
   border-radius: 0;
 }
 
-.edit-btn {
+.button {
   background-color: #000;
   padding: 2px 10px;
   height: 36px;
   border: none;
-  color: #fff;
+  color: #fff !important;
   flex: 1;
   margin: 5px;
   box-sizing: content-box;
   cursor: pointer;
   min-width: 60px;
   font-size: 16px;
+  text-decoration: none;
+  line-height: 36px;
+  text-align: center;
+}
+
+.edit-btn {
+  background-color: #000;
+  padding: 2px 10px;
+  height: 36px;
+  border: none;
+  color: #fff !important;
+  flex: 1;
+  margin: 5px;
+  box-sizing: content-box;
+  cursor: pointer;
+  min-width: 60px;
+  font-size: 16px;
+  display: block;
+  text-decoration: none;
+  line-height: 36px;
+  text-align: center;
 }
 
 .delete-btn {
@@ -237,4 +258,24 @@ a.add-post {
   cursor: pointer;
   min-width: 60px;
   font-size: 16px;
+}
+
+.create-edit-container {
+  width: 800px;
+  margin: 50px auto;
+}
+
+.create-edit-container label {
+  display: block;
+  font-size: 20px;
+}
+
+.form-control {
+  padding: 5px 10px;
+  height: 36px;
+  background: #fff;
+  color: #000;
+  border: 1px solid #ccc;
+  margin: 5px 0 20px 0;
+  min-width: 300px;
 }

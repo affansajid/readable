@@ -24,7 +24,6 @@ export function fetchPosts (category = 'none') {
   }
 }
 
-
 // Fetch Post
 export function fetchPost (post_id) {
   let postId = post_id;
@@ -32,6 +31,18 @@ export function fetchPost (post_id) {
   return fetch(
       `${SERVER_URL}/posts/${postId}`,
       { headers }
+    )
+    .then((res) => res.json())
+}
+
+// Add Post
+export function addPost (post) {
+  return fetch(
+      `${SERVER_URL}/posts/`,
+      { headers,
+        method: 'POST',
+        body: JSON.stringify(post)
+      }
     )
     .then((res) => res.json())
 }

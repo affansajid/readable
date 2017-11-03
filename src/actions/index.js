@@ -37,11 +37,23 @@ export const receivePost = post => ({
   post
 });
 
-
 export const fetchPost = (data) => dispatch => (
   ReadableAPI
       .fetchPost(data)
       .then(post => dispatch(receivePost(post)))
+);
+
+// Add post
+
+export const addPostAction = post => ({
+  type: ADD_POST,
+  post
+});
+
+export const addPost = (data) => dispatch => (
+  ReadableAPI
+      .addPost(data)
+      .then(post => dispatch(addPostAction(post)))
 );
 
 // UpVote/DownVote

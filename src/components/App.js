@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ShowPosts from './showPosts';
 import ShowPost from './postDetail';
 import ShowCategories from './showCategories';
+import CreateEditPost from './createEditPost';
 import '../App.css';
 import { Route, Link, Switch } from 'react-router-dom';
 
@@ -19,6 +20,8 @@ class App extends Component {
 
           <Switch>
             <Route exact path='/' component={ShowPosts} />
+            <Route exact path='/create' component={CreateEditPost} />
+            <Route exact path='/edit/:post_id' component={CreateEditPost} />
             <Route exact path='/:category' component={ShowPosts} />
             <Route path='/:category/:post_id' component={ShowPost} />
           </Switch>
