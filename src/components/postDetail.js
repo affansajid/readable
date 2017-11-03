@@ -66,22 +66,25 @@ class ShowPost extends Component {
 
   renderAddComment() {
     return (
-      <div className="add-comment">
-        <input
-          type="text"
-          name="author"
-          onChange={(event) => this.setState({author: event.target.value})}
-          value={this.state.author}
-          placeholder="Your Name"
-          required />
-        <input
-          type="text"
-          name="commentBody"
-          onChange={(event) => this.setState({commentBody: event.target.value})}
-          value={this.state.commentBody}
-          placeholder="Your comment"
-          required />
-        <button onClick={() => this.addComment()}>Add Comment</button>
+      <div>
+        <h4>Add A Comment</h4>
+        <div className="add-comment">
+          <input
+            type="text"
+            name="author"
+            onChange={(event) => this.setState({author: event.target.value})}
+            value={this.state.author}
+            placeholder="Your Name"
+            required />
+          <input
+            type="text"
+            name="commentBody"
+            onChange={(event) => this.setState({commentBody: event.target.value})}
+            value={this.state.commentBody}
+            placeholder="Your comment"
+            required />
+          <button className="comment-btn" onClick={() => this.addComment()}>Add Comment</button>
+        </div>
       </div>
     )
   }
