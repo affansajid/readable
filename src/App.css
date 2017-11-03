@@ -211,7 +211,7 @@ a.add-post {
   border-radius: 0;
 }
 
-.button {
+.button, .button-clear {
   background-color: #000;
   padding: 2px 10px;
   height: 36px;
@@ -226,6 +226,16 @@ a.add-post {
   text-decoration: none;
   line-height: 36px;
   text-align: center;
+}
+
+.button-clear {
+  background-color: #fff;
+  color: #000 !important;
+  border: 1px solid #000;
+}
+
+.button:hover, .button-clear:hover {
+  opacity: 0.7;
 }
 
 .edit-btn {

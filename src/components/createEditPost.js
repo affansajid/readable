@@ -45,6 +45,10 @@ class CreateEditPost extends Component {
     }
   }
 
+  cancel = () => {
+    this.props.history.goBack()
+  }
+
   updatePost = () => {
     const { title, body } = this.state
     const postId = this.props.match.params.post_id
@@ -60,6 +64,7 @@ class CreateEditPost extends Component {
         body: '',
         title: ''
       }))
+      .then(this.props.history.goBack())
     }
   }
 
@@ -85,6 +90,7 @@ class CreateEditPost extends Component {
             value={body}
             placeholder="Post Body" /><br />
           <button className="button" onClick={() => this.updatePost()}>Update Post</button>
+          <button className="button-clear" onClick={() => this.cancel()}>Cancel</button>
         </div>
       )
     }
@@ -125,6 +131,7 @@ class CreateEditPost extends Component {
             ))}
           </select><br />
           <button className="button" onClick={() => this.addPost()}>Update Post</button>
+          <button className="button-clear" onClick={() => this.cancel()}>Cancel</button>
         </div>
       )
     }

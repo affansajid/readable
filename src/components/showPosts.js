@@ -41,7 +41,9 @@ class ShowPosts extends Component {
   }
 
   sortPosts = (sortKey) => {
-    console.log(sortKey)
+    this.setState({
+      sortBy: sortKey
+    })
   }
 
   render() {
