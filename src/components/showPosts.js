@@ -12,14 +12,18 @@ class ShowPosts extends Component {
     this.props.fetchAllPosts(category);
   }
 
-  componentWillReceiveProps(nextProps) {
+  shouldComponentUpdate(nextProps) {
 
     const currentCategory = this.props.match.params.category
     const nextCategory = nextProps.match.params.category
-    console.log(currentCategory === nextCategory)
+
     if (currentCategory !== nextCategory) {
-      const category = nextCategory !== null ? nextCategory : 'none';
+      const category = nextCategory !== undefined ? nextCategory.trim() : 'none';
       this.props.fetchAllPosts(category);
+      return false
+    }
+    else {
+      return true
     }
   }
 
@@ -58,6 +62,11 @@ class ShowPosts extends Component {
               </div>
             </div>
           ))}
+          {posts.length === 0 && (
+            <div>
+              <h4>No Posts for this category</h4>
+            </div>
+          )}
         </div>
       </div>
     )
