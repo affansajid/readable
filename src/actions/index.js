@@ -56,6 +56,19 @@ export const addPost = (data) => dispatch => (
       .then(post => dispatch(addPostAction(post)))
 );
 
+// Edit post
+
+export const editPostAction = post => ({
+  type: EDIT_POST,
+  post
+});
+
+export const editPost = (data) => dispatch => (
+  ReadableAPI
+      .editPost(data)
+      .then(post => dispatch(editPostAction(post)))
+);
+
 // UpVote/DownVote
 
 export const upVotePost = post => ({

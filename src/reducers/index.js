@@ -2,8 +2,8 @@ import {
   FETCH_POSTS,
   FETCH_POST,
   ADD_POST,
-  // EDIT_POST,
-  // DELETE_POST,
+  EDIT_POST,
+  DELETE_POST,
   UPVOTE_POST,
   DOWNVOTE_POST,
   GET_COMMENTS,
@@ -36,6 +36,18 @@ function posts (state = {}, action) {
       }
 
     case ADD_POST:
+      return {
+        ...state,
+        [post.id]: post
+      }
+
+    case EDIT_POST:
+      return {
+        ...state,
+        [post.id]: post
+      }
+
+    case DELETE_POST:
       return {
         ...state,
         [post.id]: post

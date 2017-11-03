@@ -47,6 +47,19 @@ export function addPost (post) {
     .then((res) => res.json())
 }
 
+// Edit Post
+export function editPost (post) {
+  let postId = post.id;
+  return fetch(
+      `${SERVER_URL}/posts/${postId}`,
+      { headers,
+        method: 'PUT',
+        body: JSON.stringify(post)
+      }
+    )
+    .then((res) => res.json())
+}
+
 // Update Post Score
 export function updatePostScore (post_id, option) {
   let postId = post_id;

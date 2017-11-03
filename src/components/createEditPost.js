@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchPost, fetchCategories, addPost } from '../actions';
+import { fetchPost, fetchCategories, addPost, editPost } from '../actions';
 
 class CreateEditPost extends Component {
 
@@ -41,6 +41,24 @@ class CreateEditPost extends Component {
         body: '',
         title: '',
         category: ''
+      }))
+    }
+  }
+
+  updatePost = () => {
+    const { title, body } = this.state
+    const postId = this.props.match.params.post_id
+    if (title !== '' && body !== '') {
+      const post = {
+        id: postId,
+        title,
+        body,
+        timestamp: Date.now()
+      }
+      this.props.editPostDispatcher(post)
+      .then(this.setState({
+        body: '',
+        title: ''
       }))
     }
   }
@@ -123,7 +141,8 @@ function mapDispatchToProps (dispatch) {
   return {
     fetchPostData: (data) => dispatch(fetchPost(data)),
     fetchCategories: (data) => dispatch(fetchCategories(data)),
-    addPostDispatcher: (data) => dispatch(addPost(data))
+    addPostDispatcher: (data) => dispatch(addPost(data)),
+    editPostDispatcher: (data) => dispatch(editPost(data))
   }
 }
 
