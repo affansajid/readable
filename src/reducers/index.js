@@ -10,7 +10,7 @@ import {
   UPVOTE_COMMENT,
   DOWNVOTE_COMMENT,
   ADD_COMMENT,
-  // EDIT_COMMENT,
+  EDIT_COMMENT,
   DELETE_COMMENT,
   FETCH_CATEGORIES
  } from '../actions'
@@ -93,6 +93,13 @@ function comments (state = {}, action) {
         ...state,
         [comment.id]: comment
       }
+      
+    case EDIT_COMMENT:
+      return {
+        ...state,
+        [comment.id]: comment
+      }
+
     default:
       return state;
   }

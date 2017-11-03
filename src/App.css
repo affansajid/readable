@@ -140,7 +140,7 @@ header {
   margin-bottom: 20px;
 }
 
-.add-comment input {
+.add-comment input, .edit-comment input {
   padding: 5px 10px;
   height: 36px;
   background: #fff;
@@ -150,7 +150,7 @@ header {
   margin: 5px;
 }
 
-.comment-btn {
+.comment-btn, .update-btn {
   background-color: #000;
   padding: 5px 10px;
   height: 36px;
@@ -164,4 +164,15 @@ header {
 
 .comment-btn:hover {
   opacity: 0.7;
+}
+
+.edit-comment {
+  width: 600px;
+  padding: 20px;
+  border-radius: 3px;
+  background-color: #eee;
+  color: #000;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
 }

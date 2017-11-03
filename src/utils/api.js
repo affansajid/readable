@@ -95,6 +95,20 @@ export function deleteComment (commentId) {
     ).then((res) => res.json())
 }
 
+// Edit Comment
+
+export function editComment (comment) {
+  let commentId = comment.id
+
+  return fetch(
+      `${SERVER_URL}/comments/${commentId}`,
+      { headers,
+        method: 'PUT',
+        body: JSON.stringify(comment)
+      }
+    ).then((res) => res.json())
+}
+
 // CATEGORIES
 
 export function fetchCategories () {

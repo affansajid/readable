@@ -8,7 +8,8 @@ import {
     upVoteCommentScore,
     downVoteCommentScore,
     addComment,
-    deleteComment
+    deleteComment,
+    editComment
   } from '../actions';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
@@ -18,7 +19,10 @@ class ShowPost extends Component {
 
   state = {
     author: '',
-    commentBody: ''
+    commentBody: '',
+    editingComment: false,
+    editCommentBody: '',
+    commentId: ''
   }
 
   componentWillMount() {
@@ -93,9 +97,52 @@ class ShowPost extends Component {
     )
   }
 
+  editComment = (commentId, commentBody) => {
+    this.setState({
+      editingComment: true,
+      editCommentBody: commentBody,
+      commentId
+    })
+  }
+
+  updateComment = () => {
+    const { editCommentBody, commentId } = this.state
+    if (editCommentBody !== '') {
+      const comment = {
+        id: commentId,
+        body: editCommentBody,
+        timestamp: Date.now()
+      }
+      this.props.editCommentDispatcher(comment)
+      .then(this.setState({
+        editCommentBody: '',
+        editingComment: false,
+        commentId: ''
+      }))
+    }
+  }
+
+  renderEditComment() {
+    return (
+      <div>
+        <h4>Editting Comment</h4>
+        <div className="edit-comment">
+          <input
+            type="text"
+            onChange={(event) => this.setState({editCommentBody: event.target.value})}
+            value={this.state.editCommentBody}
+            placeholder="Your comment" />
+          <button className="update-btn" onClick={() => this.updateComment()}>Update Comment</button>
+        </div>
+      </div>
+    )
+  }
+
   render() {
 
     const { post, comments } = this.props
+    const { editingComment } = this.state
+
     if (post === Object.empty) {
       return (
         <div className="loading">Loading...</div>
@@ -134,7 +181,7 @@ class ShowPost extends Component {
               </div>
             )}
 
-            {comments.length > 0 && (
+            {comments.length > 0 && editingComment === false && (
               comments.map((comment) => (
                 <div className="single-comment" key={ comment.id }>
                   <div className="comment">
@@ -149,7 +196,7 @@ class ShowPost extends Component {
                       <p className="comment-body">{ comment.body }</p>
                     </div>
                     <div className="comment-actions">
-                      <button onClick={() => this.editComment(comment.id)}>Edit</button>
+                      <button onClick={() => this.editComment(comment.id, comment.body)}>Edit</button>
                       <button onClick={() => this.deleteComment(comment.id)}>Delete</button>
                     </div>
                   </div>
@@ -157,7 +204,8 @@ class ShowPost extends Component {
               ))
             )}
 
-            {this.renderAddComment()}
+            {editingComment === false && this.renderAddComment()}
+            {editingComment === true && this.renderEditComment()}
           </div>
         </div>
       )
@@ -186,7 +234,8 @@ function mapDispatchToProps (dispatch) {
     upVoteComment: (data) => dispatch(upVoteCommentScore(data)),
     downVoteComment: (data) => dispatch(downVoteCommentScore(data)),
     addCommentDispatcher: (data) => dispatch(addComment(data)),
-    deleteCommentDispatcher: (data) => dispatch(deleteComment(data))
+    deleteCommentDispatcher: (data) => dispatch(deleteComment(data)),
+    editCommentDispatcher: (data) => dispatch(editComment(data))
   }
 }
 
