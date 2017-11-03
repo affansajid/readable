@@ -60,6 +60,17 @@ export function editPost (post) {
     .then((res) => res.json())
 }
 
+// Delete Post
+export function deletePost (postId) {
+  let id = postId.toString()
+  return fetch(
+      `${SERVER_URL}/posts/${id}`,
+      { headers,
+        method: 'DELETE'
+      }
+    ).then((res) => console.log(res.json()))
+}
+
 // Update Post Score
 export function updatePostScore (post_id, option) {
   let postId = post_id;

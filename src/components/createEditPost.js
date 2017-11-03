@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchPost, fetchCategories, addPost, editPost } from '../actions';
+import { fetchPost,
+  fetchCategories,
+  addPost,
+  editPost } from '../actions';
 
 class CreateEditPost extends Component {
 
@@ -28,7 +31,7 @@ class CreateEditPost extends Component {
     const { title, body, author, category } = this.state
     if (title !== '' && body !== '' && author !== '' && category !== '') {
       const post = {
-        id: ('Post' + Date.now()),
+        id: Date.now(),
         author,
         title,
         body,

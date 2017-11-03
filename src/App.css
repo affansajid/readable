@@ -289,3 +289,8 @@ a.add-post {
   margin: 5px 0 20px 0;
   min-width: 300px;
 }
+
+.no-posts {
+  display: block;
+  text-align: center;
+}

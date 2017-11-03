@@ -69,6 +69,19 @@ export const editPost = (data) => dispatch => (
       .then(post => dispatch(editPostAction(post)))
 );
 
+// Delete post
+
+export const deletePostAction = post => ({
+  type: DELETE_POST,
+  post
+});
+
+export const deletePost = (data) => dispatch => (
+  ReadableAPI
+      .deletePost(data)
+      .then(post => dispatch(deletePostAction(post)))
+);
+
 // UpVote/DownVote
 
 export const upVotePost = post => ({
