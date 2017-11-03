@@ -2,6 +2,10 @@ const API_ID = "my_readable_api_id"
 const headers = { 'Authorization': API_ID, 'Accept': 'application/json', 'Content-Type': 'application/json' }
 const SERVER_URL = 'http://localhost:5001'
 
+// POSTS
+
+
+// Fetching Posts
 export function fetchPosts (category = 'none') {
 
   if (category !== 'none') {
@@ -20,6 +24,8 @@ export function fetchPosts (category = 'none') {
   }
 }
 
+
+// Fetch Post
 export function fetchPost (post_id) {
   let postId = post_id;
 
@@ -30,6 +36,7 @@ export function fetchPost (post_id) {
     .then((res) => res.json())
 }
 
+// Update Post Score
 export function updatePostScore (post_id, option) {
   let postId = post_id;
   return fetch(
@@ -41,6 +48,9 @@ export function updatePostScore (post_id, option) {
     ).then((res) => res.json())
 }
 
+// COMMENTS
+
+// Fetch Comments
 export function fetchComments (post_id) {
   let postId = post_id;
 
@@ -50,6 +60,7 @@ export function fetchComments (post_id) {
     ).then((res) => res.json())
 }
 
+// Update Comment Score
 export function updateCommentScore (comment_id, option) {
   let commentId = comment_id;
   return fetch(
@@ -60,6 +71,20 @@ export function updateCommentScore (comment_id, option) {
       }
     ).then((res) => res.json())
 }
+
+// Add Comment
+
+export function addComment (comment) {
+  return fetch(
+      `${SERVER_URL}/comments`,
+      { headers,
+        method: 'POST',
+        body: JSON.stringify(comment)
+      }
+    ).then((res) => res.json())
+}
+
+// CATEGORIES
 
 export function fetchCategories () {
 

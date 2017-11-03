@@ -6,13 +6,19 @@ import {
     upVotePostScore,
     downVotePostScore,
     upVoteCommentScore,
-    downVoteCommentScore
+    downVoteCommentScore,
+    addComment
   } from '../actions';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
 import { friendlyTime } from '../utils/helpers';
 
 class ShowPost extends Component {
+
+  state = {
+    author: '',
+    commentBody: ''
+  }
 
   componentWillMount() {
     let postId = this.props.match.params.post_id;
@@ -36,12 +42,56 @@ class ShowPost extends Component {
     this.props.downVoteComment(commentId)
   }
 
+  addComment = () => {
+    const { author, commentBody } = this.state
+    if (author !== '' && commentBody !== '') {
+      const comment = {
+        id: ('Comment' + Date.now()),
+        author: author,
+        body: commentBody,
+        voteScore: 0,
+        deleted: false,
+        timestamp: Date.now(),
+        parentId: this.props.match.params.post_id,
+        parentDeleted: false
+      }
+      this.props.addCommentDispatcher(comment)
+      .then(this.setState({
+        author: '',
+        commentBody: ''
+      }))
+    }
+
+  }
+
+  renderAddComment() {
+    return (
+      <div className="add-comment">
+        <input
+          type="text"
+          name="author"
+          onChange={(event) => this.setState({author: event.target.value})}
+          value={this.state.author}
+          placeholder="Your Name"
+          required />
+        <input
+          type="text"
+          name="commentBody"
+          onChange={(event) => this.setState({commentBody: event.target.value})}
+          value={this.state.commentBody}
+          placeholder="Your comment"
+          required />
+        <button onClick={() => this.addComment()}>Add Comment</button>
+      </div>
+    )
+  }
+
   render() {
 
     const { post, comments } = this.props
     if (post === Object.empty) {
       return (
-        <div>Loading...</div>
+        <div className="loading">Loading...</div>
       )
     }
     else {
@@ -67,10 +117,18 @@ class ShowPost extends Component {
               </div>
             </div>
           </div>
-          {comments.length > 0 && (
-            <div className="comments-container">
-              <h3>Comments</h3>
-              {comments.map((comment) => (
+
+          <div className="comments-container">
+            <h3>Comments</h3>
+
+            {comments.length === 0 && (
+              <div className="no-comments">
+                <p>This post has no comments. Add a comment below</p>
+              </div>
+            )}
+
+            {comments.length > 0 && (
+              comments.map((comment) => (
                 <div className="single-post" key={ comment.id }>
                   <div className="post">
                     <div className="post-score">
@@ -85,9 +143,11 @@ class ShowPost extends Component {
                     </div>
                   </div>
                 </div>
-              ))}
-            </div>
-          )}
+              ))
+            )}
+
+            {this.renderAddComment()}
+          </div>
         </div>
       )
     }
@@ -100,7 +160,9 @@ function mapStateToProps(state, ownProps) {
 
   return {
     post: state.posts[id],
-    comments
+    comments: comments.sort((a, b) => {
+      return b.voteScore - a.voteScore
+    })
   }
 }
 
@@ -109,9 +171,10 @@ function mapDispatchToProps (dispatch) {
     fetchPostData: (data) => dispatch(fetchPost(data)),
     fetchPostComments: (data) => dispatch(fetchComments(data)),
     upVotePost: (data) => dispatch(upVotePostScore(data)),
-    downVotePost: (data) => dispatch(downVotePostScore(data)),    
+    downVotePost: (data) => dispatch(downVotePostScore(data)),
     upVoteComment: (data) => dispatch(upVoteCommentScore(data)),
-    downVoteComment: (data) => dispatch(downVoteCommentScore(data))
+    downVoteComment: (data) => dispatch(downVoteCommentScore(data)),
+    addCommentDispatcher: (data) => dispatch(addComment(data))
   }
 }
 

@@ -14,6 +14,11 @@ header {
   color: white;
 }
 
+.loading {
+  margin: 30px auto;
+  font-size: 20x;
+}
+
 .category-container {
   display: flex;
   margin-top: 10px;

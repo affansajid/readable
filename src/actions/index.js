@@ -15,7 +15,7 @@ export const FETCH_POSTS = "FETCH_POSTS";
 export const FETCH_POST = "FETCH_POST";
 export const FETCH_CATEGORIES = "FETCH_CATEGORIES";
 
-/// POSTS
+// POSTS
 
 // Fetching Posts
 
@@ -68,7 +68,7 @@ export const downVotePostScore = (data) => dispatch => (
       .then(post => dispatch(downVotePost(post)))
 );
 
-/// COMMENTS
+// COMMENTS
 
 // Fetching Comments
 
@@ -107,7 +107,20 @@ export const downVoteCommentScore = (data) => dispatch => (
       .then(comment => dispatch(downVoteComment(comment)))
 );
 
-// Categories
+// Add comment
+
+export const addCommentAction = comment => ({
+  type: ADD_COMMENT,
+  comment
+});
+
+export const addComment = (data) => dispatch => (
+  ReadableAPI
+      .addComment(data)
+      .then(comment => dispatch(addCommentAction(comment)))
+);
+
+// CATEGORIES
 
 export const receiveCategories = categories => ({
   type: FETCH_CATEGORIES,

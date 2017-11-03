@@ -9,7 +9,7 @@ import {
   GET_COMMENTS,
   UPVOTE_COMMENT,
   DOWNVOTE_COMMENT,
-  // ADD_COMMENT,
+  ADD_COMMENT,
   // EDIT_COMMENT,
   // DELETE_COMMENT,
   FETCH_CATEGORIES
@@ -77,6 +77,12 @@ function comments (state = {}, action) {
       }
 
     case DOWNVOTE_COMMENT:
+      return {
+        ...state,
+        [comment.id]: comment
+      }
+
+    case ADD_COMMENT:
       return {
         ...state,
         [comment.id]: comment
