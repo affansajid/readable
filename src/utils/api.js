@@ -1,6 +1,6 @@
 const API_ID = "my_readable_api_id"
 const headers = { 'Authorization': API_ID, 'Accept': 'application/json', 'Content-Type': 'application/json' }
-const SERVER_URL = 'http://localhost:5001'
+const SERVER_URL = 'http://localhost:3001'
 
 // POSTS
 
@@ -62,9 +62,8 @@ export function editPost (post) {
 
 // Delete Post
 export function deletePost (postId) {
-  let id = postId.toString()
   return fetch(
-      `${SERVER_URL}/posts/${id}`,
+      `${SERVER_URL}/posts/${postId}`,
       { headers,
         method: 'DELETE'
       }
