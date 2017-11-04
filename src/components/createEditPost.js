@@ -31,7 +31,7 @@ class CreateEditPost extends Component {
     const { title, body, author, category } = this.state
     if (title !== '' && body !== '' && author !== '' && category !== '') {
       const post = {
-        id: Date.now(),
+        id: Date.now().toString(),
         author,
         title,
         body,

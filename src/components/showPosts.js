@@ -45,8 +45,14 @@ class ShowPosts extends Component {
   }
 
   deletePost = (postId) => {
+    const category = this.props.match.params.category
     this.props.deletePostDispatcher(postId)
-    this.props.history.push('/')
+    if (category !== undefined) {
+      this.props.history.push(category)
+    }
+    else {
+      this.props.history.push('/')
+    }
   }
 
   sortPosts = (sortKey) => {
