@@ -50,6 +50,8 @@ class ShowPost extends Component {
 
   addComment = () => {
     const { author, commentBody } = this.state
+    let postId = this.props.match.params.post_id;
+
     if (author !== '' && commentBody !== '') {
       const comment = {
         id: ('Comment' + Date.now()),
@@ -63,14 +65,14 @@ class ShowPost extends Component {
         author: '',
         commentBody: ''
       }))
-
-      let postId = this.props.match.params.post_id;
-      this.props.fetchPostData(postId)
+      .then(this.props.fetchPostData(postId))
     }
   }
 
   deleteComment = (commentId) => {
+    let postId = this.props.match.params.post_id;
     this.props.deleteCommentDispatcher(commentId)
+    .then(this.props.fetchPostData(postId))
   }
 
   renderAddComment() {
