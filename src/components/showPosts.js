@@ -92,13 +92,14 @@ class ShowPosts extends Component {
               </div>
               <div className="post-details">
                 <Link to={`/${post.category}/${post.id}`}>
-                  <h3 className="post-title">{ post.title }</h3>
+                  <h2 className="post-title">{ post.title }</h2>
                 </Link>
-                <h4 className="post-author">{ post.author }</h4>
-                <Link to={`/${post.category}`}><h4 className="post-category">#{ post.category }</h4></Link>
-                <small className="post-date">{ friendlyTime(post.timestamp) }</small><br />
-                <small className="post-comment-count">Comments: { post.commentCount }</small>
                 <p className="post-body">{ post.body }</p>
+                <p className="post-author">By: { post.author }</p>
+                <Link to={`/${post.category}`}><h4 className="post-category">#{ post.category }</h4></Link>
+                <small className="post-date">Posted: { friendlyTime(post.timestamp) }</small><br />
+                <small className="post-comment-count">Comments: { post.commentCount }</small>
+
               </div>
               <div className="post-actions">
                 <Link className="edit-btn" to={`/edit/${post.id}`}>Edit</Link>

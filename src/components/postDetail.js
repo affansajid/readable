@@ -63,7 +63,7 @@ class ShowPost extends Component {
         author: '',
         commentBody: ''
       }))
-      
+
       let postId = this.props.match.params.post_id;
       this.props.fetchPostData(postId)
     }
@@ -76,7 +76,7 @@ class ShowPost extends Component {
   renderAddComment() {
     return (
       <div>
-        <h4>Add A Comment</h4>
+        <h4 className="text-center">Add A Comment</h4>
         <div className="add-comment">
           <input
             type="text"
@@ -131,7 +131,7 @@ class ShowPost extends Component {
   renderEditComment() {
     return (
       <div>
-        <h4>Editting Comment</h4>
+        <h4 className="text-center">Editting Comment</h4>
         <div className="edit-comment">
           <input
             type="text"
@@ -168,13 +168,15 @@ class ShowPost extends Component {
                   </div>
                   <div className="post-details">
                     <Link to={`/${post.category}/${post.id}`}>
-                      <h3 className="post-title">{ post.title }</h3>
+                      <h2 className="post-title">{ post.title }</h2>
                     </Link>
-                    <h4 className="post-author">{ post.author }</h4>
-                    <Link to={`/${post.category}`}><h4 className="post-category">{ post.category }</h4></Link>
-                    <small className="post-date">{ friendlyTime(post.timestamp) }</small><br />
-                    <small className="post-comment-count">Comments: { post.commentCount }</small>
                     <p className="post-body">{ post.body }</p>
+                    <p className="post-author">By: { post.author }</p>
+                    <Link to={`/${post.category}`}><h4 className="post-category">#{ post.category }</h4></Link>
+                    <small className="post-date">Posted: { friendlyTime(post.timestamp) }</small><br />
+                    <small className="post-comment-count">Comments: { post.commentCount }</small>
+
+
                   </div>
                   <div className="post-actions">
                     <Link className="edit-btn" to={`/edit/${post.id}`}>Edit</Link>
@@ -203,9 +205,9 @@ class ShowPost extends Component {
                         <div className="minus-score" onClick={() => this.decrementCommentScore(comment.id) }>&#x25BC;</div>
                       </div>
                       <div className="comment-details">
-                        <h4 className="comment-author">{ comment.author }</h4>
-                        <small className="comment-date">{ friendlyTime(comment.timestamp) }</small>
                         <p className="comment-body">{ comment.body }</p>
+                        <p className="comment-author">By: { comment.author }</p>
+                        <small className="comment-date">{ friendlyTime(comment.timestamp) }</small>
                       </div>
                       <div className="comment-actions">
                         <button className="edit-btn" onClick={() => this.editComment(comment.id, comment.body)}>Edit</button>
