@@ -45,6 +45,7 @@ class CreateEditPost extends Component {
         title: '',
         category: ''
       }))
+      this.props.history.push('/')
     }
   }
 
