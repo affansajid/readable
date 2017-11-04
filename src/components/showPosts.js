@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchPosts, upVotePostScore, downVotePostScore, fetchComments } from '../actions';
+import { fetchPosts,
+  upVotePostScore,
+  downVotePostScore,
+  fetchComments,
+  deletePost } from '../actions';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
 import { friendlyTime } from '../utils/helpers';
@@ -38,6 +42,11 @@ class ShowPosts extends Component {
 
   decrementScore = (postId) => {
     this.props.downVotePost(postId)
+  }
+
+  deletePost = (postId) => {
+    this.props.deletePostDispatcher(postId)
+    this.props.history.push('/')
   }
 
   sortPosts = (sortKey) => {
@@ -121,7 +130,8 @@ function mapDispatchToProps (dispatch) {
     fetchAllPosts: (data) => dispatch(fetchPosts(data)),
     fetchAllComments: (data) => dispatch(fetchComments(data)),
     upVotePost: (data) => dispatch(upVotePostScore(data)),
-    downVotePost: (data) => dispatch(downVotePostScore(data))
+    downVotePost: (data) => dispatch(downVotePostScore(data)),
+    deletePostDispatcher: (data) => dispatch(deletePost(data))
   }
 }
 
