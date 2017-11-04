@@ -55,10 +55,17 @@ class ShowPosts extends Component {
     })
   }
 
+  sorter = (posts, sortKey) => {
+    return posts.sort((a ,b) => {
+      return b[sortKey] - a[sortKey]
+    })
+  }
+
   render() {
 
     const { posts } = this.props;
-
+    const { sortBy } = this.state;
+    const sortedPosts = this.sorter(posts, sortBy)
 
     return (
       <div className="container">
@@ -78,12 +85,12 @@ class ShowPosts extends Component {
             className="sort-control">
             <option value="" disabled>Sort By...</option>
             <option value="voteScore">Vote Score</option>
-            <option value="Date">Date</option>
+            <option value="timestamp">Date</option>
           </select>
         </div>
 
         <div className="posts">
-          {posts.map((post) => (
+          {sortedPosts.map((post) => (
             <div className="post" key={ post.id }>
               <div className="post-score">
                 <div className="add-score" onClick={() => this.incrementScore(post.id)}>&#x25B2;</div>
