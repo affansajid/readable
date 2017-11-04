@@ -63,6 +63,9 @@ class ShowPost extends Component {
         author: '',
         commentBody: ''
       }))
+      
+      let postId = this.props.match.params.post_id;
+      this.props.fetchPostData(postId)
     }
   }
 
@@ -170,7 +173,7 @@ class ShowPost extends Component {
                     <h4 className="post-author">{ post.author }</h4>
                     <Link to={`/${post.category}`}><h4 className="post-category">{ post.category }</h4></Link>
                     <small className="post-date">{ friendlyTime(post.timestamp) }</small><br />
-                    <small className="post-comment-count">Comments: { comments.length }</small>
+                    <small className="post-comment-count">Comments: { post.commentCount }</small>
                     <p className="post-body">{ post.body }</p>
                   </div>
                   <div className="post-actions">
