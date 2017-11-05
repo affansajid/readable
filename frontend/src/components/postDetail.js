@@ -153,7 +153,14 @@ class ShowPost extends Component {
 
     if (post === Object.empty) {
       return (
-        <div className="loading">Loading...</div>
+        <div className="no-post">
+          <h4>Error 404 - Post Not Found</h4>
+          <button
+            className="button"
+            onClick={() => this.props.history.push('/')}>
+            Back To Home
+          </button>
+        </div>
       )
     }
     else {

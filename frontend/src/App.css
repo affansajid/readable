@@ -57,6 +57,10 @@ header {
   margin: 50px auto;
 }
 
+.no-post {
+  margin: 30px auto;
+  text-align: center;
+}
 
 .post {
   width: 100%;
