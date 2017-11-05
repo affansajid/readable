@@ -11,7 +11,7 @@ class CreateEditPost extends Component {
     author: '',
     body: '',
     title: '',
-    category: ''
+    category: 'none'
   }
 
   componentWillMount() {
@@ -29,7 +29,7 @@ class CreateEditPost extends Component {
 
   addPost = () => {
     const { title, body, author, category } = this.state
-    if (title !== '' && body !== '' && author !== '' && category !== '') {
+    if (title !== '' && body !== '' && author !== '' && category !== 'none') {
       const post = {
         id: Date.now().toString(),
         author,
@@ -43,7 +43,7 @@ class CreateEditPost extends Component {
         author: '',
         body: '',
         title: '',
-        category: ''
+        category: 'none'
       }))
       this.props.history.push('/')
     }
@@ -130,6 +130,7 @@ class CreateEditPost extends Component {
               category: event.target.value
             })}
             value={category}>
+            <option value='none' key='none'>Choose One</option>
             {this.props.categories.map((category) => (
             <option value={category.name} key={category.name}>{category.name}</option>
             ))}
